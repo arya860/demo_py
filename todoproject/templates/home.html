@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner">
+<!--                <div class="banner-text">-->
+<!--                    <h1>To Do</h1>-->
+<!--                </div>-->
+                <h1>To Do</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+        <form method="post" class="p-3 shadow">
+        {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" name="taskname" placeholder="task name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="priority" placeholder="priority">
+            </div>
+            <div class="form-group">
+                <input type="date" class="form-control" name="date" placeholder="date">
+            </div>
+            <input type="submit" class="btn btn-success">
+            </form>
+            </div>
+        <div class="col-md-6">
+        {% for item in details %}
+            <div class="shadow card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <p class="card-text"><b>{{item.priority}}</b></p>
+              <p class="card-text"><b>{{item.date}}</b></p>
+            <a href="{% url 'delete' item.id %}" class="btn btn-danger">Done</a>
+            <a href="{% url 'update' item.id %}" class="btn btn-warning">Update</a>
+            <a href="{% url 'cbvdetail' item.id %}" class="btn btn-success">More</a>
+          </div>
+        </div><br>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
